@@ -1,16 +1,17 @@
 package com.ssg4.be.member.mapper;
 
-import java.util.List;
-import java.util.Map;
-
+import com.ssg4.be.member.model.LoginDto;
+import com.ssg4.be.member.model.Member;
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ssg4.be.member.model.LoginDto;
+import java.util.List;
 
 @Mapper
 public interface MemberMapper {
 
-	List<Map<String, String>> selectMemberList();
-	
-	Map<String, String> selectMember(LoginDto param);
+	int countMember();
+
+	List<Member> findAllMember();
+
+	Member findMemberByIdAndPw(LoginDto param);
 }

@@ -1,26 +1,24 @@
 package com.ssg4.be.member.service;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ssg4.be.member.mapper.MemberMapper;
+import com.ssg4.be.member.model.Member;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import com.ssg4.be.member.mapper.MemberMapper;
-import com.ssg4.be.member.model.LoginDto;
+import java.util.List;
 
+@Slf4j
+@RequiredArgsConstructor
 @Service
 public class MemberService {
 
-	@Autowired
-	MemberMapper mapper;
-	
-	public List<Map<String, String>> selectMember() {
-		return mapper.selectMemberList();
+	private final MemberMapper mapper;
+
+	/**
+	 * 회원 목록 조회
+	 */
+	public List<Member> findAllMember() {
+		return mapper.findAllMember();
 	}
-	
-	public Map<String, String> login(LoginDto param){
-		return mapper.selectMember(param);
-	}
-	
 }
