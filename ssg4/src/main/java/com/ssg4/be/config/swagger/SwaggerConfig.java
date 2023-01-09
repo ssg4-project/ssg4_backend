@@ -1,4 +1,4 @@
-package com.ssg4.be.config;
+package com.ssg4.be.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
