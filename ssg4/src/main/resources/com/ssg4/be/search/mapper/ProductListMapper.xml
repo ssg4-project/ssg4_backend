@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssg4.be.search.mapper.ProductListMapper">
+
+	<select id="selectAllProduct" resultType="map">
+	SELECT M_ID, P_NAME, O_ID FROM product WHERE SELLER_ID = #{id}
+	</select>
+	
+	<select id="selectAllConsumer" resultType="map">
+	SELECT P_NAME, finish_time, get_time FROM product WHERE M_ID = #{id}
+	</select>
+	
+	<select id="selectAllRider" resultType="map">
+	SELECT p.POST_NUM, m.M_id, p.MSG, m.m_adr FROM product p, member m WHERE rider_id = #{id} and p.m_id = m.m_id 
+	</select>
+	
+	<select id="riderDetail" resultType="map">
+	SELECT p.p_stat, m.m_adr, m.m_tel, m.m_name, p.o_id FROM product p, member m WHERE p.post_num = #{post_num} and p.m_id = m.m_id
+	</select>
+	
+	
+</mapper>
