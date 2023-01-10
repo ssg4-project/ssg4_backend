@@ -18,4 +18,10 @@ public class UpdateService {
 		mapper.get_deli(time, post);
 		return;
 	}
+	public void returnProduct(int post) {
+		mapper.returnProduct(post);
+	}
+	public void msgProduct(int post) {
+		mapper.msgProduct(post);
+	}
 }

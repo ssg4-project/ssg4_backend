@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UpdateMapper {
 	void finish_deli(String time, int post); 
 	void get_deli(String time, int post); 
+	void returnProduct(int post);
+	void msgProduct(int post);
 }

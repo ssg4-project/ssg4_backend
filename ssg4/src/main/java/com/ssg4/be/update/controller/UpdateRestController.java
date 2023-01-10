@@ -30,5 +30,20 @@ public class UpdateRestController {
 		service.get_deli(time, post);
 	}
 	
+	/*
+	 * 반송여부 변경
+	 * */
+	@PutMapping("/putReturn")
+	public void returnProduct(int post) {
+		service.returnProduct(post);
+	}
+	
+	/*
+	 * 메세지 전송여부 변경
+	 * */
+	@PutMapping("/putMsg")
+	public void msgProduct(int post) {
+		service.msgProduct(post);
+	}
 	
 }
