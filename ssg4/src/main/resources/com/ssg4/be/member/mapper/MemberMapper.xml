@@ -2,22 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssg4.be.member.mapper.MemberMapper">
 
-    <select id="countMember" resultType="Integer">
-        SELECT COUNT(*)
-        FROM MEMBER
-    </select>
-
-    <select id="findAllMember" resultType="com.ssg4.be.member.model.Member">
+    <select id="findAllMember" resultType="com.ssg4.be.member.model.MemberVo">
         SELECT *
         FROM MEMBER
     </select>
 
     <select id="findMemberByIdAndPw" parameterType="com.ssg4.be.member.model.LoginDto"
-            resultType="com.ssg4.be.member.model.Member">
-        SELECT M_ID, M_NAME, M_NICKNAME, M_TYPE, M_TEL, M_ADR, M_POSTNUM
+            resultType="com.ssg4.be.member.model.MemberVo">
+        SELECT MNO
+            , ID
+            , PW
+            , NAME
+            , MEMBER_TYPE
+            , NICKNAME
+            , TEL
         FROM MEMBER
-        WHERE M_ID = #{id}
-          AND M_PW = #{pw}
+        WHERE ID = #{id}
+          AND PW = #{pw}
     </select>
 
 </mapper>

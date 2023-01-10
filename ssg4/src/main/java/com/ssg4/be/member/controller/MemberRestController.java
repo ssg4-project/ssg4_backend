@@ -1,6 +1,6 @@
 package com.ssg4.be.member.controller;
 
-import com.ssg4.be.member.model.Member;
+import com.ssg4.be.member.model.MemberVo;
 import com.ssg4.be.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +20,8 @@ public class MemberRestController {
     private final MemberService memberService;
 
     @GetMapping("/test")
-    public List<Member> test() {
-        List<Member> list = memberService.findAllMember();
+    public List<MemberVo> test() {
+        List<MemberVo> list = memberService.findAllMember();
         return list;
     }
 

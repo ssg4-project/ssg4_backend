@@ -1,7 +1,7 @@
 package com.ssg4.be.member.controller;
 
 import com.ssg4.be.member.model.LoginDto;
-import com.ssg4.be.member.model.Member;
+import com.ssg4.be.member.model.MemberVo;
 import com.ssg4.be.member.service.AuthService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -20,23 +20,22 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthRestController {
-
     private final AuthService authService;
 
     /**
      * 로그인
      */
     @PostMapping("/login")
-    public ResponseEntity<Member> login(HttpServletRequest req,
-                                        @RequestBody LoginDto param) {
+    public ResponseEntity<MemberVo> login(HttpServletRequest req,
+                                          @RequestBody LoginDto param) {
         try {
-            Member member = authService.login(req, param);
-            log.info("로그인 성공! {}", member.getMId());
+            MemberVo member = authService.login(req, param);
+            log.info("로그인 성공! {}", member.getMno());
             return ResponseEntity.status(200)
                     .body(member);
         } catch (Exception e) {
             log.error("로그인 실패 : {}", e.toString());
-            return ResponseEntity.status(400).body(new Member());
+            return ResponseEntity.status(400).body(new MemberVo());
         }
     }
 }
