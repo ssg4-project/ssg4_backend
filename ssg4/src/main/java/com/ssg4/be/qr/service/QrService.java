@@ -6,6 +6,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.ssg4.be.qr.mapper.QrMapper;
+import com.ssg4.be.qr.model.QrFileVO;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,8 +37,8 @@ public class QrService {
         }
 
         //2. qrcode 생성 및 이미지 저장
-        int width = 200;
-        int height = 200;
+        int width = 20;
+        int height = 20;
         BitMatrix matrix = new MultiFormatWriter().encode("url", BarcodeFormat.QR_CODE, width, height);
 
         String filePath = QR_CODE_IMAGE_PATH + dno + ".png";
@@ -44,8 +46,18 @@ public class QrService {
         MatrixToImageWriter.writeToPath(matrix, "PNG", path);
 
         resultMap.put("msg","QR코드가 생성 되었습니다.");
+        
+        //3. qr 이미지 파일 db 저장
+        QrFileVO qr = new QrFileVO();
+        qr.setFilePath(filePath);
+        qr.setDno(dno);
+        qrMapper.insertQrFile(qr);
 
         return resultMap;
+    }
+    
+    public String findFilePathByFno(int fno) {
+		return qrMapper.findFilePathByFno(fno);
     }
 
 }

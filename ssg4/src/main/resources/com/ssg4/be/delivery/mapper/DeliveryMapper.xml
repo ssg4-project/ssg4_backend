@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssg4.be.delivery.mapper.DeliveryMapper">
+
+    <select id="findAllDelivery" parameterType="map" resultType="com.ssg4.be.delivery.model.DeliveryDto">
+        SELECT D.DNO,
+		    D.MNO AS CUSTOMER_NO,
+		    M.ID,
+		    M.NAME,
+		    M.NICKNAME,
+		    M.TEL,
+		    M.ADDRESS,
+		    M.POST_NO, 
+		    D.RIDER_ID,
+		    (SELECT NAME FROM MEMBER WHERE MNO=D.RIDER_ID) AS RIDER_NAME,
+		    D.REG_ID AS SELLER_ID,
+		    (SELECT NAME FROM MEMBER WHERE MNO=D.REG_ID) AS SELLER_NAME,
+		    (SELECT TEL FROM MEMBER WHERE MNO=D.REG_ID) AS SELLER_TEL,
+		    (SELECT POST_NO FROM MEMBER WHERE MNO=D.REG_ID) AS SELLER_POST_NO,
+		    (SELECT ADDRESS FROM MEMBER WHERE MNO=D.REG_ID) AS SELLER_ADDRESS,
+		    D.COURIER,
+		    D.PRODUCT_NAME,
+		    D.TRACKING_NO,
+		    D.DELIVERY_STATE,
+		    D.DELIVERY_SCH_TIME,
+		    D.DELIVERY_TIME,
+		    D.RECEIVED_TIME,
+		    D.RECEIVED_YN,
+		    D.RETURN_YN,
+		    D.SENDING_YN,
+		    D.REG_DATE
+		FROM DELIVERY D LEFT JOIN MEMBER M
+		ON D.MNO = M.MNO
+		<where>
+			<if test="type != null">
+				${type} = #{no}
+			</if>
+		</where>
+    </select>
+    
+    <select id="findDeliveryByDno" parameterType="Integer" resultType="com.ssg4.be.delivery.model.DeliveryDto">
+        SELECT D.DNO,
+		    D.MNO AS CUSTOMER_NO,
+		    M.ID,
+		    M.NAME,
+		    M.NICKNAME,
+		    M.TEL,
+		    M.ADDRESS,
+		    M.POST_NO, 
+		    D.RIDER_ID,
+		    (SELECT NAME FROM MEMBER WHERE MNO=D.RIDER_ID) AS RIDER_NAME,
+		    D.REG_ID AS SELLER_ID,
+		    (SELECT NAME FROM MEMBER WHERE MNO=D.REG_ID) AS SELLER_NAME,
+		    (SELECT TEL FROM MEMBER WHERE MNO=D.REG_ID) AS SELLER_TEL,
+		    (SELECT POST_NO FROM MEMBER WHERE MNO=D.REG_ID) AS SELLER_POST_NO,
+		    (SELECT ADDRESS FROM MEMBER WHERE MNO=D.REG_ID) AS SELLER_ADDRESS,
+		    D.COURIER,
+		    D.PRODUCT_NAME,
+		    D.TRACKING_NO,
+		    D.DELIVERY_STATE,
+		    D.DELIVERY_SCH_TIME,
+		    D.DELIVERY_TIME,
+		    D.RECEIVED_TIME,
+		    D.RECEIVED_YN,
+		    D.RETURN_YN,
+		    D.SENDING_YN,
+		    D.REG_DATE
+		FROM DELIVERY D LEFT JOIN MEMBER M
+		ON D.MNO = M.MNO
+		WHERE D.DNO = #{dno}
+    </select>
+    
+    <update id="updateReturnYn" parameterType="Integer">
+    	UPDATE DELIVERY 
+    	SET RECEIVED_YN = 'Y'
+    		, RECEIVED_TIME = SYSDATE
+    	WHERE DNO = #{dno}
+    </update>
+    
+    <update id="updateDeliveryYn" parameterType="Integer">
+    	UPDATE DELIVERY 
+    	SET DELIVERY_STATE = 'Y'
+    		, DELIVERY_TIME = SYSDATE 
+    	WHERE DNO = #{dno}
+    </update>
+    
+    <update id="updateSendingYn" parameterType="Integer">
+    	UPDATE DELIVERY 
+    	SET SENDING_YN = 'Y' 
+    	WHERE DNO = #{dno}
+    </update>
+
+</mapper>
