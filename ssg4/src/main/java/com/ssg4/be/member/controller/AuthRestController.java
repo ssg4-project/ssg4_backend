@@ -1,18 +1,24 @@
 package com.ssg4.be.member.controller;
 
-import com.ssg4.be.member.model.LoginDto;
-import com.ssg4.be.member.model.MemberVo;
-import com.ssg4.be.member.service.AuthService;
-import io.swagger.annotations.Api;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import com.ssg4.be.common.utils.JsonUtil;
+import com.ssg4.be.config.jwt.JwtProvider;
+import com.ssg4.be.member.model.LoginDto;
+import com.ssg4.be.member.model.MemberVo;
+import com.ssg4.be.member.model.token.TokenDataResponse;
+import com.ssg4.be.member.model.token.TokenResponse;
+import com.ssg4.be.member.service.AuthService;
+
+import io.jsonwebtoken.Claims;
+import io.swagger.annotations.Api;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Api(tags = "인증 API")
 @Slf4j
@@ -20,22 +26,33 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthRestController {
+
+    private final JwtProvider jwtProvider;
     private final AuthService authService;
 
     /**
      * 로그인
      */
     @PostMapping("/login")
-    public ResponseEntity<MemberVo> login(HttpServletRequest req,
-                                          @RequestBody LoginDto param) {
+    public TokenResponse login(HttpServletRequest req,
+        @RequestBody LoginDto param) {
+        MemberVo member;
         try {
-            MemberVo member = authService.login(req, param);
-            log.info("로그인 성공! {}", member.getMno());
-            return ResponseEntity.status(200)
-                    .body(member);
+            member = authService.login(req, param);
         } catch (Exception e) {
             log.error("로그인 실패 : {}", e.toString());
-            return ResponseEntity.status(400).body(new MemberVo());
+            return null;
         }
+
+        String json = JsonUtil.pojoToJson(member);
+
+        String token = jwtProvider.createToken(json); // 토큰 생성
+        Claims claims = jwtProvider.parseJwtToken("Bearer " + token); // 토큰 검증
+
+        TokenDataResponse tokenDataResponse = new TokenDataResponse(token, claims.getSubject(),
+            claims.getIssuedAt().toString(), claims.getExpiration().toString());
+        TokenResponse tokenResponse = new TokenResponse("200", "OK", tokenDataResponse);
+
+        return tokenResponse;
     }
 }
