@@ -26,6 +26,9 @@ public class QrService {
 
     private static final String QR_CODE_IMAGE_PATH = "D:\\ssg4\\qr\\";
 
+    /**
+     * QRCODE 생성
+     */
     public Map<String, String> createQrcode(int dno) throws WriterException, IOException {
         Map<String, String> resultMap = new HashMap<>();
 
@@ -37,9 +40,10 @@ public class QrService {
         }
 
         //2. qrcode 생성 및 이미지 저장
+        String content = "http://localhost/delivery/info?dno="+dno;
         int width = 20;
         int height = 20;
-        BitMatrix matrix = new MultiFormatWriter().encode("url", BarcodeFormat.QR_CODE, width, height);
+        BitMatrix matrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height);
 
         String filePath = QR_CODE_IMAGE_PATH + dno + ".png";
         Path path = FileSystems.getDefault().getPath(filePath);
@@ -55,7 +59,10 @@ public class QrService {
 
         return resultMap;
     }
-    
+
+    /**
+     * fno(파일번호)로 파일경로 조회
+     */
     public String findFilePathByFno(int fno) {
 		return qrMapper.findFilePathByFno(fno);
     }
