@@ -54,7 +54,7 @@ public class QrRestController {
     	String path = qrService.findFilePathByFno(fno);
     	
     	if(path == null) {
-    		//TODO.
+    		// TODO. 나중에 해야할 부분
     	}
     	Resource resource = new FileSystemResource(path);
     	if(!resource.exists()) 
