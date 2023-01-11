@@ -69,24 +69,44 @@
 		ON D.MNO = M.MNO
 		WHERE D.DNO = #{dno}
     </select>
+
+	<select id="findDeliveryCntByDno" parameterType="Integer" resultType="Integer">
+		SELECT COUNT(*)
+		FROM DELIVERY
+		WHERE DNO = #{dno}
+		AND TRACKING_NO IS NULL
+	</select>
+
+	<update id="updateTrackingNo" parameterType="com.ssg4.be.delivery.model.ExcelData">
+		update DELIVERY
+		set TRACKING_NO = #{trackingNo}
+		where DNO =  #{dno}
+	</update>
     
-    <update id="updateReturnYn" parameterType="Integer">
+    <update id="updateReceivedYn" parameterType="Integer">
     	UPDATE DELIVERY 
     	SET RECEIVED_YN = 'Y'
     		, RECEIVED_TIME = SYSDATE
     	WHERE DNO = #{dno}
     </update>
+
+	<update id="updateReturnYn" parameterType="Integer">
+    	UPDATE DELIVERY
+    	SET RETURN_YN = 'Y'
+    	WHERE DNO = #{dno}
+    </update>
     
     <update id="updateDeliveryYn" parameterType="Integer">
     	UPDATE DELIVERY 
-    	SET DELIVERY_STATE = 'Y'
+    	SET DELIVERY_STATE = '배송완료'
+    	    , DELIVERY_STATE = 'Y'
     		, DELIVERY_TIME = SYSDATE 
     	WHERE DNO = #{dno}
     </update>
     
     <update id="updateSendingYn" parameterType="Integer">
-    	UPDATE DELIVERY 
-    	SET SENDING_YN = 'Y' 
+    	UPDATE DELIVERY
+    	SET SENDING_YN = 'Y'
     	WHERE DNO = #{dno}
     </update>
 
