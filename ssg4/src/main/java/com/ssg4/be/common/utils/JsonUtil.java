@@ -6,7 +6,7 @@ public class JsonUtil {
 	/**
 	 * pojo => json
 	 */
-	public static String pojoToJson(Object object) {
+	public static String getJsonFromPojo(Object object) {
 		Gson gson = new Gson();
 		return gson.toJson(object);
 	}
@@ -14,8 +14,8 @@ public class JsonUtil {
 	/**
 	 * json => pojo
 	 */
-	public static Object jsonToPojo(String json, Object object) {
+	public static <T> T getPojoFromJson(String json, Class<T> clazz) {
 		Gson gson = new Gson();
-		return gson.fromJson(json, object.getClass());
+		return gson.fromJson(json, clazz);
 	}
 }

@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.util.Base64;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +17,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtProvider {
 
+    // JWT 암호화 패스워드
     @Value("${jwt.password}")
     private String SECRET_KEY;
+    // 토큰이 저장된 Header name
+    private final String AUTHORIZATION = "Authorization";
 
     /**
      * 토큰 생성 메소드
@@ -58,5 +63,15 @@ public class JwtProvider {
      */
     private String removeBearerByToken(String token) {
         return token.substring("Bearer ".length());
+    }
+
+    /**
+     * 토큰 조회
+     * @param request Request
+     * @return
+     */
+    public Claims getClaimsFromRequest(HttpServletRequest request) {
+        String token = request.getHeader(AUTHORIZATION);
+        return parseJwtToken(token);
     }
 }

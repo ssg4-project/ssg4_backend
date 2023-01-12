@@ -44,8 +44,7 @@ public class AuthRestController {
             return null;
         }
 
-        String json = JsonUtil.pojoToJson(member);
-
+        String json = JsonUtil.getJsonFromPojo(member);
         String token = jwtProvider.createToken(json); // 토큰 생성
         Claims claims = jwtProvider.parseJwtToken("Bearer " + token); // 토큰 검증
 

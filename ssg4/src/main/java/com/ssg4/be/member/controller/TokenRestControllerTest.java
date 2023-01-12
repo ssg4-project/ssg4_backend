@@ -21,6 +21,11 @@ public class TokenRestControllerTest {
 
 	private final JwtProvider jwtProvider;
 
+	@GetMapping(value = "/test")
+	public String createToken() throws Exception {
+		return "테스트 성공!";
+	}
+
 	/**
 	 * 토큰 생성 컨트롤러
 	 * @param userId 유저 ID
