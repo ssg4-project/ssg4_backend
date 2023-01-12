@@ -1,5 +1,6 @@
 package com.ssg4.be.member.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/test/token")
+@CrossOrigin("*")
 public class TokenRestControllerTest {
 
 	private final JwtProvider jwtProvider;
