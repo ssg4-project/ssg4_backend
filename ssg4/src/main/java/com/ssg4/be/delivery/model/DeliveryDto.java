@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DeliveryDto {
+	
+	private int dno; 
 	private int customerNo; 
 	private String id;
 	private String name;
