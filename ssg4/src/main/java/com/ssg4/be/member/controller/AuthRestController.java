@@ -17,6 +17,7 @@ import com.ssg4.be.member.service.AuthService;
 
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +34,7 @@ public class AuthRestController {
     /**
      * 로그인
      */
+    @ApiOperation("로그인")
     @PostMapping("/login")
     public TokenResponse login(HttpServletRequest req,
         @RequestBody LoginDto param) {

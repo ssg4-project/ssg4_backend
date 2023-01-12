@@ -27,11 +27,11 @@ public class MainInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
         throws Exception {
-        // 토큰의 회원 정보 조회
-        MemberVo member = memberService.getMemberFromRequest(request);
-
         // 요청 로깅 처리
         log.info("[REQUEST] >> [{}] {}", request.getMethod(), request.getRequestURI());
+
+        // 토큰의 회원 정보 조회
+        MemberVo member = memberService.getMemberFromRequest(request);
 
         // 회원 ID 가 존재하지 않는 경우
         if (member.getId() == null)
