@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssg4.be.common.model.Response;
 import com.ssg4.be.common.utils.JsonUtil;
 import com.ssg4.be.config.jwt.JwtProvider;
 import com.ssg4.be.member.model.LoginDto;
 import com.ssg4.be.member.model.MemberVo;
 import com.ssg4.be.member.model.token.TokenDataResponse;
-import com.ssg4.be.member.model.token.TokenResponse;
 import com.ssg4.be.member.service.AuthService;
 
 import io.jsonwebtoken.Claims;
@@ -36,7 +36,7 @@ public class AuthRestController {
      */
     @ApiOperation("로그인")
     @PostMapping("/login")
-    public TokenResponse login(HttpServletRequest req,
+    public Response<TokenDataResponse> login(HttpServletRequest req,
         @RequestBody LoginDto param) {
         MemberVo member;
         try {
@@ -52,8 +52,6 @@ public class AuthRestController {
 
         TokenDataResponse tokenDataResponse = new TokenDataResponse(token, claims.getSubject(),
             claims.getIssuedAt().toString(), claims.getExpiration().toString());
-        TokenResponse tokenResponse = new TokenResponse("200", "OK", tokenDataResponse);
-
-        return tokenResponse;
+        return Response.ok(tokenDataResponse);
     }
 }
