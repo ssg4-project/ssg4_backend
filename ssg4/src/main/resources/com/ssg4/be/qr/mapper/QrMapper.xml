@@ -8,21 +8,19 @@
         WHERE DNO = ${dno}
     </select>
     
-    <select id="findFilePathByFno" parameterType="Integer" resultType="String">
+    <select id="findFilePathByDno" parameterType="Integer" resultType="String">
         SELECT FILE_PATH
 		FROM QR_FILE
-		WHERE FNO = ${fno}
+		WHERE DNO = ${dno}
     </select>
     
     <insert id="insertQrFile" parameterType="com.ssg4.be.qr.model.QrFileVO">
     	INSERT INTO QR_FILE (
-    		FNO, 
     		FILE_PATH, 
     		DNO
     	) VALUES (
-    		QR_FILE_SEQ.NEXTVAL
-    		, #{filePath}
-    		, ${dno}
+    		#{filePath}
+    		, #{dno}
     	)
     </insert>
 

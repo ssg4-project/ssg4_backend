@@ -32,11 +32,11 @@ public class DeliveryRestController {
     private final DeliveryService deliveryService;
 
     @GetMapping("/list")
-    public List<DeliveryDto> findAllDelivery(@RequestParam String type, @RequestParam String no, @RequestParam String schTime) {
+    public List<DeliveryDto> findAllDelivery(@RequestParam String type, @RequestParam String no, @RequestParam(required = false) String schTime) {
         Map<String, String> param = new HashMap<String, String>();
         param.put("type", type);
         param.put("no", no);
-        if(!"".equals(schTime)) {
+        if(schTime != null) {
         	param.put("schTime", schTime);
         }
     	

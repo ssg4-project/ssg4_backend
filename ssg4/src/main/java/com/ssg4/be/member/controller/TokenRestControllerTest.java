@@ -37,7 +37,7 @@ public class TokenRestControllerTest {
 		String token = jwtProvider.createToken(subject); // 토큰 생성
 		Claims claims = jwtProvider.parseJwtToken("Bearer " + token); // 토큰 검증
 
-		TokenDataResponse tokenDataResponse = new TokenDataResponse(token, claims.getSubject(),
+		TokenDataResponse tokenDataResponse = new TokenDataResponse(token, null,
 			claims.getIssuedAt().toString(), claims.getExpiration().toString());
 		return Response.ok(tokenDataResponse);
 	}

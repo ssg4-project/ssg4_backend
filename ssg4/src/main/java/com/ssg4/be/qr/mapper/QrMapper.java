@@ -11,5 +11,5 @@ public interface QrMapper {
 	
 	int insertQrFile(QrFileVO qr);
 	
-	String findFilePathByFno(int fno);
+	String findFilePathByDno(int dno);
 }

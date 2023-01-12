@@ -40,9 +40,9 @@ public class QrService {
         }
 
         //2. qrcode 생성 및 이미지 저장
-        String content = "http://localhost/delivery/info?dno="+dno;
-        int width = 20;
-        int height = 20;
+        String content = "/delivery/info?dno="+dno;
+        int width = 100;
+        int height = 100;
         BitMatrix matrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height);
 
         String filePath = QR_CODE_IMAGE_PATH + dno + ".png";
@@ -63,8 +63,8 @@ public class QrService {
     /**
      * fno(파일번호)로 파일경로 조회
      */
-    public String findFilePathByFno(int fno) {
-		return qrMapper.findFilePathByFno(fno);
+    public String findFilePathByDno(int dno) {
+		return qrMapper.findFilePathByDno(dno);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.ssg4.be.member.model.token;
 
+import com.ssg4.be.member.model.MemberVo;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -7,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class TokenDataResponse {
 	private String token;
-	private String subject;
+	private MemberVo member;
 	private String issued_time;
 	private String expired_time;
 }

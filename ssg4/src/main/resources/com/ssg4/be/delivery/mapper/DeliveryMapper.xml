@@ -32,10 +32,10 @@
 		FROM DELIVERY D LEFT JOIN MEMBER M
 		ON D.MNO = M.MNO
 		<where>
-			<if test="type != null || type.equals('')">
-			${type} = #{no}
+			<if test="type != null and type != ''">
+			${type} = ${no}
 			</if>
-			<if test="schTime != null">
+			<if test="schTime != null and schTime != ''">
 			AND D.DELIVERY_SCH_TIME = #{schTime}
 			</if>
 		</where>
@@ -89,7 +89,7 @@
     <update id="updateReceivedYn" parameterType="Integer">
     	UPDATE DELIVERY 
     	SET RECEIVED_YN = 'Y'
-    		, RECEIVED_TIME = SYSDATE
+    		, RECEIVED_TIME = SYSDATE()
     	WHERE DNO = #{dno}
     </update>
 
@@ -102,8 +102,7 @@
     <update id="updateDeliveryYn" parameterType="Integer">
     	UPDATE DELIVERY 
     	SET DELIVERY_STATE = '배송완료'
-    	    , DELIVERY_STATE = 'Y'
-    		, DELIVERY_TIME = SYSDATE 
+    		, DELIVERY_TIME = SYSDATE()
     	WHERE DNO = #{dno}
     </update>
     

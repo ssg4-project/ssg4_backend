@@ -34,8 +34,8 @@ public class QrRestController {
      * Qrcode 조회
      */
     @GetMapping("/display")
-    public ResponseEntity<Resource> display(@RequestParam("fno") int fno) {
-    	String path = qrService.findFilePathByFno(fno);
+    public ResponseEntity<Resource> display(@RequestParam("dno") int dno) {
+    	String path = qrService.findFilePathByDno(dno);
     	
     	if(path == null) {
     		// TODO. 나중에 해야할 부분

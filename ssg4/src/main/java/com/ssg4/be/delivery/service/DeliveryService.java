@@ -38,13 +38,13 @@ public class DeliveryService {
 		String type = param.get("type");
 		switch (type) {
 		case "customer": //사용자
-			param.put("type", "d.mno");
+			param.put("type", "D.MNO");
 			break;
 		case "rider": //배송기사
-			param.put("type", "d.rider_id");
+			param.put("type", "D.RIDER_ID");
 			break;
 		case "seller": //판매자
-			param.put("type", "d.reg_id");
+			param.put("type", "D.REG_ID");
 			break;
 
 		default:

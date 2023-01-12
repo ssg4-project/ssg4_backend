@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class QrFileVO {
 	
-	private int fno;
 	private String filePath;
 	private int dno;
 }
