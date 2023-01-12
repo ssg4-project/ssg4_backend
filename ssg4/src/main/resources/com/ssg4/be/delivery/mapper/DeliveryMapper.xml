@@ -32,8 +32,11 @@
 		FROM DELIVERY D LEFT JOIN MEMBER M
 		ON D.MNO = M.MNO
 		<where>
-			<if test="type != null">
-				${type} = #{no}
+			<if test="type != null || type.equals('')">
+			${type} = #{no}
+			</if>
+			<if test="schTime != null || schTime.equals('')">
+			AND D.DELIVERY_SCH_TIME = #{schTime}
 			</if>
 		</where>
     </select>

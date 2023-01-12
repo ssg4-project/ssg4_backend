@@ -30,7 +30,7 @@ public class JwtProvider {
      */
     public String createToken(String subject) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + Duration.ofDays(1).toMillis()); // 만료기간 1일
+        Date expiration = new Date(now.getTime() + Duration.ofDays(7).toMillis()); // 만료기간 7일
 
         return Jwts.builder()
             .setHeaderParam(Header.TYPE, Header.JWT_TYPE) // (1)

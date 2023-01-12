@@ -1,12 +1,10 @@
 package com.ssg4.be.delivery.service;
 
-import com.google.zxing.WriterException;
-import com.ssg4.be.delivery.mapper.DeliveryMapper;
-import com.ssg4.be.delivery.model.DeliveryDto;
-import com.ssg4.be.delivery.model.ExcelData;
-import com.ssg4.be.qr.service.QrService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -16,11 +14,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.google.zxing.WriterException;
+import com.ssg4.be.delivery.mapper.DeliveryMapper;
+import com.ssg4.be.delivery.model.DeliveryDto;
+import com.ssg4.be.delivery.model.ExcelData;
+import com.ssg4.be.qr.service.QrService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -32,16 +33,15 @@ public class DeliveryService {
 	/**
 	 * 회원 목록 조회
 	 */
-	public List<DeliveryDto> findAllDelivery(String type, String no) {
+	public List<DeliveryDto> findAllDelivery(Map<String, String> param) {
 		
-		Map<String, String> param = new HashMap<>();
-		
+		String type = param.get("type");
 		switch (type) {
 		case "customer": //사용자
 			param.put("type", "d.mno");
 			break;
 		case "rider": //배송기사
-			param.put("type","d.rider_id");
+			param.put("type", "d.rider_id");
 			break;
 		case "seller": //판매자
 			param.put("type", "d.reg_id");
@@ -50,10 +50,10 @@ public class DeliveryService {
 		default:
 			break;
 		}
-		param.put("no", no);
 		
 		return mapper.findAllDelivery(param);
 	}
+	
 	public DeliveryDto findDeliveryByDno(int dno) {
 		return mapper.findDeliveryByDno(dno);
 	}
