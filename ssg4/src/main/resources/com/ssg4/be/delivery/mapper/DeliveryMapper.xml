@@ -35,7 +35,7 @@
 			<if test="type != null || type.equals('')">
 			${type} = #{no}
 			</if>
-			<if test="schTime != null || schTime.equals('')">
+			<if test="schTime != null">
 			AND D.DELIVERY_SCH_TIME = #{schTime}
 			</if>
 		</where>

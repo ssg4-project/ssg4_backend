@@ -31,13 +31,12 @@ public class DeliveryRestController {
 
     private final DeliveryService deliveryService;
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "jwt", value = "JWT Token", required = true, dataType = "string", paramType = "header")})
     @GetMapping("/list")
-    public List<DeliveryDto> findAllDelivery(@RequestParam String type, @RequestParam String no, @RequestParam(required = false) String schTime) {
+    public List<DeliveryDto> findAllDelivery(@RequestParam String type, @RequestParam String no, @RequestParam String schTime) {
         Map<String, String> param = new HashMap<String, String>();
         param.put("type", type);
         param.put("no", no);
-        if(schTime != null || "".equals(schTime)) {
+        if(!"".equals(schTime)) {
         	param.put("schTime", schTime);
         }
     	
