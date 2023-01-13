@@ -42,24 +42,12 @@ public class QrRestController {
             name = "dno"
             , value = "배송번호"
             , required = true
-            , dataType = "string"
-            , defaultValue = "None")
+            , dataType = "string")
     @GetMapping("/display")
-    public ResponseEntity<Resource> display(@RequestParam("dno") int dno) {
+    public String display(@RequestParam("dno") int dno) {
     	String path = qrService.findFilePathByDno(dno);
     	
-    	Resource resource = new FileSystemResource(path);
-    	if(!resource.exists()) 
-    		return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);
-    	HttpHeaders header = new HttpHeaders();
-    	Path filePath = null;
-    	try{
-    		filePath = Paths.get(path);
-    		header.add("Content-type", Files.probeContentType(filePath));
-    	}catch(IOException e) {
-    		e.printStackTrace();
-    	}
-    	return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
+    	return path;
     }
 
 }

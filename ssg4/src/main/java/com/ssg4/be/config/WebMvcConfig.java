@@ -2,6 +2,7 @@ package com.ssg4.be.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.ssg4.be.config.interceptor.MainInterceptor;
@@ -26,8 +27,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
             .excludePathPatterns(
                 "/swagger-resources/**",
                 "/swagger-ui/**",
+                "/img/**",
                 "/v3/api-docs"
             )
             .addPathPatterns("/*/**");
+    }
+    
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("file:/home/ubuntu/img/");
     }
 }
