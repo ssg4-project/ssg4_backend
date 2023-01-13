@@ -36,7 +36,7 @@ public class DeliveryRestController {
         Map<String, String> param = new HashMap<String, String>();
         param.put("type", type);
         param.put("no", no);
-        if(schTime != null) {
+        if(schTime != null && !schTime.equals("")) {
         	param.put("schTime", schTime);
         }
     	
