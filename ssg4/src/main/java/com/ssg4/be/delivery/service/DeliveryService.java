@@ -2,6 +2,7 @@ package com.ssg4.be.delivery.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import com.google.zxing.WriterException;
 import com.ssg4.be.delivery.mapper.DeliveryMapper;
 import com.ssg4.be.delivery.model.DeliveryDto;
 import com.ssg4.be.delivery.model.ExcelData;
+import com.ssg4.be.member.service.MemberService;
 import com.ssg4.be.qr.service.QrService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DeliveryService {
 	private final DeliveryMapper mapper;
 	private final QrService qrService;
+	private final MemberService memberService;
 
 	/**
 	 * 회원 목록 조회
@@ -54,8 +57,20 @@ public class DeliveryService {
 		return mapper.findAllDelivery(param);
 	}
 	
-	public DeliveryDto findDeliveryByDno(int dno) {
-		return mapper.findDeliveryByDno(dno);
+	public Map<String,Object> findDeliveryByDno(int dno, int mno) {
+		
+		Map<String,Object> result = new HashMap<String, Object>();
+		DeliveryDto user = mapper.findDeliveryByDno(dno);
+		
+		if(mno != user.getCustomerNo() && mno != user.getRiderId()) {
+			result.put("code", 400);
+			return result;
+		}
+
+		result.put("code", 200);
+		result.put("info", user);
+		
+		return result;
 	}
 
 	/**

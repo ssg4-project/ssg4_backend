@@ -2,6 +2,8 @@ package com.ssg4.be.qr.controller;
 
 import com.ssg4.be.qr.service.QrService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
@@ -33,13 +35,19 @@ public class QrRestController {
     /**
      * Qrcode 조회
      */
+    @ApiOperation(
+            value = "Qrcode 이미지 조회"
+            , notes = "배송번호를 통해 저장된 Qrcode를 조회한다.")
+    @ApiImplicitParam(
+            name = "dno"
+            , value = "배송번호"
+            , required = true
+            , dataType = "string"
+            , defaultValue = "None")
     @GetMapping("/display")
     public ResponseEntity<Resource> display(@RequestParam("dno") int dno) {
     	String path = qrService.findFilePathByDno(dno);
     	
-    	if(path == null) {
-    		// TODO. 나중에 해야할 부분
-    	}
     	Resource resource = new FileSystemResource(path);
     	if(!resource.exists()) 
     		return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);

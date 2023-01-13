@@ -36,7 +36,9 @@ public class AuthRestController {
     /**
      * 로그인
      */
-    @ApiOperation("로그인")
+    @ApiOperation(
+            value = "로그인"
+            , notes = "로그인 후 토큰을 발급한다.")
     @PostMapping("/login")
     public Response<TokenDataResponse> login(HttpServletRequest req,
         @RequestBody LoginDto param) {
