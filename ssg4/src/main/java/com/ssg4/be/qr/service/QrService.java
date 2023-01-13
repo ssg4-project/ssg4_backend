@@ -24,7 +24,8 @@ import java.util.Map;
 public class QrService {
     private final QrMapper qrMapper;
 
-    private static final String QR_CODE_IMAGE_PATH = "D:\\ssg4\\qr\\";
+//    private static final String QR_CODE_IMAGE_PATH = "D:\\ssg4\\qr\\";
+    private static final String QR_CODE_IMAGE_PATH = "/home/ubuntu/img/";
 
     /**
      * QRCODE 생성
