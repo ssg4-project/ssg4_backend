@@ -28,7 +28,8 @@
 		    D.RECEIVED_YN,
 		    D.RETURN_YN,
 		    D.SENDING_YN,
-		    D.REG_DATE
+		    D.REG_DATE,
+		    D.DEL_YN
 		FROM DELIVERY D LEFT JOIN MEMBER M
 		ON D.MNO = M.MNO
 		<where>
@@ -67,7 +68,8 @@
 		    D.RECEIVED_YN,
 		    D.RETURN_YN,
 		    D.SENDING_YN,
-		    D.REG_DATE
+		    D.REG_DATE,
+			D.DEL_YN
 		FROM DELIVERY D LEFT JOIN MEMBER M
 		ON D.MNO = M.MNO
 		WHERE D.DNO = #{dno}
@@ -103,6 +105,7 @@
     	UPDATE DELIVERY 
     	SET DELIVERY_STATE = '배송완료'
     		, DELIVERY_TIME = SYSDATE()
+    		, DEL_YN = 'Y'
     	WHERE DNO = #{dno}
     </update>
     

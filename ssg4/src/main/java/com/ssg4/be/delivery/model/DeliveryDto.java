@@ -36,4 +36,5 @@ public class DeliveryDto {
 	private String returnYn;
 	private String sendingYn;
 	private String regDate;
+	private String delYn;
 }
