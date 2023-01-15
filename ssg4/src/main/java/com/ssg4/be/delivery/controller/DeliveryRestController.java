@@ -1,30 +1,18 @@
 package com.ssg4.be.delivery.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.ssg4.be.delivery.model.DeliveryDto;
 import com.ssg4.be.delivery.service.DeliveryService;
 import com.ssg4.be.member.model.MemberVo;
 import com.ssg4.be.member.service.MemberService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Api(tags = "배송 API")
 @Slf4j
@@ -41,7 +29,7 @@ public class DeliveryRestController {
             value = "배송리스트 조회"
             , notes = "사용자, 택배기사, 판매자 별 배송리스트를 조회한다.")
     @GetMapping("/list")
-    public List<DeliveryDto> findAllDelivery(@RequestParam String type, @RequestParam String no, @RequestParam(required = false) String schTime) {
+    public Map<String, Object> findAllDelivery(@RequestParam String type, @RequestParam String no, @RequestParam(required = false) String schTime) {
         Map<String, String> param = new HashMap<String, String>();
         param.put("type", type);
         param.put("no", no);
@@ -49,7 +37,7 @@ public class DeliveryRestController {
         	param.put("schTime", schTime);
         }
     	
-    	List<DeliveryDto> list = deliveryService.findAllDelivery(param);
+    	Map<String, Object> list = deliveryService.findAllDelivery(param);
         return list;
     }
 
