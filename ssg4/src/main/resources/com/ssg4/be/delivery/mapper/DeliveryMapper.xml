@@ -92,6 +92,7 @@
     	UPDATE DELIVERY 
     	SET RECEIVED_YN = 'Y'
     		, RECEIVED_TIME = SYSDATE()
+    		, DEL_YN = 'Y'
     	WHERE DNO = #{dno}
     </update>
 
@@ -105,7 +106,6 @@
     	UPDATE DELIVERY 
     	SET DELIVERY_STATE = '배송완료'
     		, DELIVERY_TIME = SYSDATE()
-    		, DEL_YN = 'Y'
     	WHERE DNO = #{dno}
     </update>
     
