@@ -61,7 +61,8 @@ public class DeliveryService {
         cnt.put("msg", 0);
         cnt.put("complete", 0);
         for (DeliveryDto d : list) {
-            cnt.put("total", cnt.getOrDefault("total", 0) + 1);
+        	if (d.getTrackingNo() != 0)
+        		cnt.put("total", cnt.getOrDefault("total", 0) + 1);
             if (d.getSendingYn() != null && d.getSendingYn().equals("Y"))
                 cnt.put("msg", cnt.getOrDefault("msg", 0) + 1);
             if (d.getDeliveryState() != null && d.getDeliveryState().equals("배송완료"))
