@@ -99,6 +99,8 @@
 	<update id="updateReturnYn" parameterType="Integer">
     	UPDATE DELIVERY
     	SET RETURN_YN = 'Y'
+    		, RECEIVED_YN = 'Y'
+    		, RECEIVED_TIME = SYSDATE()
     	WHERE DNO = #{dno}
     </update>
     
